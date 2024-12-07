@@ -6,14 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")  // Added base path
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/add")  // Changed endpoint to '/api/users/add'
-    public void addUser(@RequestBody User user) {
-        userService.saveUser(user);
+    @CrossOrigin(origins = "http://localhost:5173")
+    @PostMapping("/login")
+    public boolean loginUser(@RequestBody User user) {
+        return userService.authenticateUser(user.getNickname(), user.getPassword());
+    }
+
+    @CrossOrigin(origins = "http://localhost:5173")
+    @PostMapping("/register")
+    public boolean registerUser(@RequestBody User user) {
+        return userService.registerUser(user);
     }
 }
