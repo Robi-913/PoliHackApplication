@@ -1,4 +1,4 @@
-package com.example.PoliHack.model.utils;
+package com.example.PoliHack.model.user.utils;
 
 import lombok.Getter;
 import lombok.Setter;

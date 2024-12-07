@@ -1,7 +1,7 @@
 package com.example.PoliHack.service;
 
-import com.example.PoliHack.model.User;
-import com.example.PoliHack.model.utils.UserSession;
+import com.example.PoliHack.model.user.User;
+import com.example.PoliHack.model.user.utils.UserSession;
 import com.example.PoliHack.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ public class UserService {
     public boolean authenticateUser(String nickname, String password) {
         User user = userRepository.findByNickname(nickname);
         if (user != null && user.getPassword().equals(password)) {
-            // Stochează detaliile utilizatorului în Singleton
             UserSession userSession = UserSession.getInstance();
             userSession.setUserId(user.getId());
             userSession.setUserNickname(user.getNickname());
