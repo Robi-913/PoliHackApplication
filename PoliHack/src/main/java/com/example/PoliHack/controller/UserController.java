@@ -12,16 +12,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @CrossOrigin(origins = "http://localhost:5173") // Permite accesul doar din frontend
     @PostMapping("/login")
     public boolean loginUser(@RequestBody User user) {
-        System.out.println("Received login request for nickname: " + user.getNickname());
         return userService.authenticateUser(user.getNickname(), user.getPassword());
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/register")
-    public boolean registerUser(@RequestBody User user){
+    public boolean registerUser(@RequestBody User user) {
         return userService.registerUser(user);
     }
-
-
 }
+
