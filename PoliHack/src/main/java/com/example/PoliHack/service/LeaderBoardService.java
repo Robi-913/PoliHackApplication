@@ -4,6 +4,7 @@ import com.example.PoliHack.model.LeaderBoard;
 import com.example.PoliHack.model.user.User;
 import com.example.PoliHack.model.user.UserStatus;
 import com.example.PoliHack.model.user.utils.UserSession;
+import com.example.PoliHack.repository.LeaderBoardRepository;
 import com.example.PoliHack.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,19 +18,17 @@ import java.util.List;
 public class LeaderBoardService {
 
     private final UserRepository userRepository;
+    private final LeaderBoardRepository leaderBoardRepository;
 
-    public List<LeaderBoard> generateLeaderBoard() {
-        List<User> users = userRepository.findAll(); // Obține toți utilizatorii
+    public List<LeaderBoard> generateAndSaveLeaderBoard() {
+        List<User> users = userRepository.findAll();
         UserSession currentUserSession = UserSession.getInstance();
-
         List<LeaderBoard> leaderBoardList = new ArrayList<>();
 
         for (User user : users) {
-            // Atribuie valori de test pentru scor și status
-            int score = calculateScoreForUser(user); // Funcție care calculează scorul
-            int statusValue = determineStatusValueForUser(user); // Funcție care determină valoarea statusului
+            int score = calculateScoreForUser(user);
+            int statusValue = determineStatusValueForUser(user);
 
-            // Creează un obiect LeaderBoard
             LeaderBoard leaderBoard = new LeaderBoard();
             leaderBoard.setUser(user);
             leaderBoard.setScore(score);
@@ -39,18 +38,39 @@ public class LeaderBoardService {
             leaderBoardList.add(leaderBoard);
         }
 
-        // Sortează lista descrescător după scor
         leaderBoardList.sort(Comparator.comparingInt(LeaderBoard::getScore).reversed());
+        leaderBoardRepository.deleteAll();
+        leaderBoardRepository.saveAll(leaderBoardList);
 
         return leaderBoardList;
     }
 
+    public List<LeaderBoard> getLeaderBoard() {
+        return leaderBoardRepository.findAll();
+    }
+
+    public LeaderBoard processAndUpdateCurrentUserScore(List<Integer> scores) {
+        UserSession currentUserSession = UserSession.getInstance();
+        String currentUserId = currentUserSession.getUserId();
+
+        LeaderBoard leaderBoard = leaderBoardRepository.findByUserId(currentUserId)
+                .orElseThrow(() -> new IllegalArgumentException("Utilizatorul curent nu există în LeaderBoard."));
+
+        int doneCount = (int) scores.stream().filter(score -> score == 2).count();
+        int predefinedValue = 10;
+        int additionalScore = doneCount * predefinedValue;
+
+        int newScore = leaderBoard.getScore() + additionalScore;
+        leaderBoard.setScore(newScore);
+
+        return leaderBoardRepository.save(leaderBoard);
+    }
+
     private int calculateScoreForUser(User user) {
-        return (int) (Math.random() * 100); // Exemplu: scor random între 0 și 100
+        return (int) (Math.random() * 100);
     }
 
     private int determineStatusValueForUser(User user) {
-        return (int) (Math.random() * 4); // Exemplu: valoare random între 0 și 3
+        return (int) (Math.random() * 4);
     }
-
 }
