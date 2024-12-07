@@ -1,7 +1,6 @@
 package com.example.PoliHack.controller;
 
-import com.example.PoliHack.model.user.User;
-import com.example.PoliHack.service.UserService;
+import com.example.PoliHack.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
