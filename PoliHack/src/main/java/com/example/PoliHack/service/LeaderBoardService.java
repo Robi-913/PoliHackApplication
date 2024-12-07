@@ -34,7 +34,7 @@ public class LeaderBoardService {
             leaderBoard.setUser(user);
             leaderBoard.setScore(score);
             leaderBoard.setStatus(UserStatus.fromValue(statusValue));
-            leaderBoard.setIscurentuserl(user.getId().equals(currentUserSession.getUserId()));
+            leaderBoard.setIscurentuser(user.getId().equals(currentUserSession.getUserId()));
 
             leaderBoardList.add(leaderBoard);
         }

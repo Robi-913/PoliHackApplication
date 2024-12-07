@@ -27,7 +27,7 @@ public class LeaderBoardController {
                         public final String nickname = leaderBoard.getUser().getNickname();
                         public final int score = leaderBoard.getScore();
                         public final int status = leaderBoard.getStatus().getValue();
-                        public final boolean isCurrentUser = leaderBoard.isIscurentuserl();
+                        public final boolean isCurrentUser = leaderBoard.isIscurentuser();
                     };
                 })
                 .collect(Collectors.toList());
