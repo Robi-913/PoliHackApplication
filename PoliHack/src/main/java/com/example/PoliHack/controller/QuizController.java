@@ -30,7 +30,7 @@ public class QuizController {
     {
         List<Integer> answers = response.getAnswers();
         Integer maxCount=quizService.calculateOccurence(answers);
-        return "redirect:/habits";
+        return "redirect:/habits/"+maxCount;
     }
 
 }
