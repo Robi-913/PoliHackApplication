@@ -1,17 +1,18 @@
 package com.example.PoliHack.model;
 
 import lombok.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter
-@Setter
+@Document
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 
 public class User {
-
-    private Long id;
+    @Id
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
