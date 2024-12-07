@@ -14,6 +14,7 @@ public class UserController {
 
     @PostMapping("/login")
     public boolean loginUser(@RequestBody User user) {
+        System.out.println("Received login request for nickname: " + user.getNickname());
         return userService.authenticateUser(user.getNickname(), user.getPassword());
     }
 
