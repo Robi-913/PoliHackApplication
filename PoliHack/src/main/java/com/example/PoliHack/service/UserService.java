@@ -1,6 +1,7 @@
 package com.example.PoliHack.service;
 
-import com.example.PoliHack.model.User;
+import com.example.PoliHack.model.user.User;
+import com.example.PoliHack.model.user.utils.UserSession;
 import com.example.PoliHack.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,15 @@ public class UserService {
 
     public boolean authenticateUser(String nickname, String password) {
         User user = userRepository.findByNickname(nickname);
-        return user != null && user.getPassword().equals(password);
+        if (user != null && user.getPassword().equals(password)) {
+            UserSession userSession = UserSession.getInstance();
+            userSession.setUserId(user.getId());
+            userSession.setUserNickname(user.getNickname());
+            return true;
+        }
+        return false;
     }
+
 
     public boolean registerUser(User user) {
         if (user.getId() == null || user.getId().isEmpty()) {
