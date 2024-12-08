@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.http.MediaType;
+import reactor.core.publisher.Mono;
 
 public class ApiClient {
 
@@ -16,39 +17,32 @@ public class ApiClient {
     }
 
 
-    public String sendQuestion(String question) {
-        String apiResponse= webClient.post()
+    public Mono<String> sendQuestion(String question) {
+        question = sanitizeInput(question);
+        return webClient.post()
                 .uri("/api/v1/ai/question")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("{\"question\": \"" + question + "\"}")
                 .retrieve()
-                .bodyToMono(String.class) // Transform the response to ApiResponse object
-                .block(); // Blocking call for simplicity; avoid in reactive applications
-        System.out.println(apiResponse);
-        try {
-            // Create ObjectMapper for JSON parsing
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            // Step 3: Deserialize the outer JSON (e.g., {"response": "..."})
-            JsonNode outerJson = objectMapper.readTree(apiResponse);
-
-            // Step 4: Extract the "response" field, which is another JSON string
-            String innerJsonString = outerJson.get("response").asText();
-
-            // Step 5: Parse the inner JSON string (e.g., {"message": "..."})
-            JsonNode innerJson = objectMapper.readTree(innerJsonString);
-
-            // Step 6: Extract the "message" field from the inner JSON
-            String message = innerJson.get("message").asText();
-            System.out.println(message);
-
-            // Return or process the extracted message
-            return message;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Error parsing response";
-        }
+                .bodyToMono(String.class) // Get the response as a Mono
+                .map(response -> {
+                    try {
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        JsonNode outerJson = objectMapper.readTree(response);
+                        String innerJsonString = outerJson.get("response").asText();
+                        JsonNode innerJson = objectMapper.readTree(innerJsonString);
+                        return innerJson.get("message").asText();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return "Error parsing response";
+                    }
+                });
     }
+    private String sanitizeInput(String input) {
+        // Remove control characters (ASCII 0-31) and delete character (ASCII 127)
+        return input.replaceAll("[\\x00-\\x1F\\x7F]", "");
+    }
+
 }
+
 

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.List;
+
 
 
 @Document(collection = "Habit")
@@ -15,14 +17,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Habit {
-
+public class Group {
     @Id
     private ObjectId id;
-    private String title;
-    private boolean chosen;
-    private String user;
-
+    private String roomName;
+    private List<User> user;
+    private String pass;
 
 
 }
