@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/quiz")
@@ -25,9 +26,15 @@ public class QuizController {
 
     // Fetch all quizzes
     @GetMapping()
-    public ResponseEntity<List<Quiz>> getAllQuizzes() {
-        List<Quiz> quizzes = quizRepository.findAll();
-        return ResponseEntity.ok(quizzes);
+    public List<Object> getAllQuizzes() {
+        List<Quiz> quizzes = quizRepository.findAll();  // Fetch all quizzes from the database
+
+        return quizzes.stream()
+                .map(quiz -> new Object() {
+                    public final String question = quiz.getQuestion();  // Map the question
+                    public final List<String> options = quiz.getOptions();  // Map the options
+                })
+                .collect(Collectors.toList());
     }
 
     @PostMapping()
