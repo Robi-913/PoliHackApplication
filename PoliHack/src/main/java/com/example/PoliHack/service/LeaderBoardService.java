@@ -1,47 +1,42 @@
 package com.example.PoliHack.service;
 
 import com.example.PoliHack.model.LeaderBoard;
-import com.example.PoliHack.model.user.User;
-import com.example.PoliHack.model.user.UserStatus;
 import com.example.PoliHack.model.user.utils.UserSession;
 import com.example.PoliHack.repository.LeaderBoardRepository;
-import com.example.PoliHack.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class LeaderBoardService {
 
-    private final UserRepository userRepository;
     private final LeaderBoardRepository leaderBoardRepository;
 
-
+    // Listează toți utilizatorii din LeaderBoard
     public List<LeaderBoard> getLeaderBoard() {
-        return leaderBoardRepository.findAll();
+        return leaderBoardRepository.findAll()
+                .stream()
+                .sorted((a, b) -> Integer.compare(b.getScore(), a.getScore())) // Sortează după scor descrescător
+                .collect(Collectors.toList());
     }
 
-    public LeaderBoard processAndUpdateCurrentUserScore(List<Integer> scores) {
+    // Actualizează LeaderBoard pentru utilizatorul curent
+    public LeaderBoard updateCurrentUserScore(List<Integer> taskStatus) {
         UserSession currentUserSession = UserSession.getInstance();
         String currentUserId = currentUserSession.getUserId();
 
-        try {
-            LeaderBoard leaderBoard = leaderBoardRepository.findByUserId(currentUserId)
-                    .orElseThrow(() -> new IllegalArgumentException("Utilizatorul curent nu există în LeaderBoard."));
+        LeaderBoard leaderBoard = leaderBoardRepository.findByUserId(currentUserId)
+                .orElseThrow(() -> new IllegalArgumentException("Utilizatorul curent nu există în LeaderBoard."));
 
-            int doneCount = (int) scores.stream().filter(score -> score == 2).count();
-            int predefinedValue = 10;
-            int additionalScore = doneCount * predefinedValue;
+        int doneCount = (int) taskStatus.stream().filter(status -> status == 2).count(); // Numără zilele 'done'
+        int scoreIncrement = doneCount * 10; // 10 puncte per zi 'done'
 
-            int newScore = leaderBoard.getScore() + additionalScore;
-            leaderBoard.setScore(newScore);
+        leaderBoard.setScore(leaderBoard.getScore() + scoreIncrement); // Adaugă scorul
+        leaderBoardRepository.save(leaderBoard);
 
-            return leaderBoardRepository.save(leaderBoard);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Eroare la procesarea scorului: " + e.getMessage());
-        }
+        return leaderBoard;
     }
-
 }

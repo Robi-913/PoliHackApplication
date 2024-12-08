@@ -5,7 +5,6 @@ import com.example.PoliHack.service.LeaderBoardService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/leaderboard")
@@ -17,32 +16,18 @@ public class LeaderBoardController {
         this.leaderBoardService = leaderBoardService;
     }
 
+    // Endpoint pentru a obține LeaderBoard-ul complet
     @GetMapping
-    public List<Object> getLeaderBoard() {
-        return leaderBoardService.getLeaderBoard().stream()
-                .map(leaderBoard -> {
-                    return new Object() {
-                        public final String userId = leaderBoard.getUser().getId();
-                        public final String nickname = leaderBoard.getUser().getNickname();
-                        public final int score = leaderBoard.getScore();
-                        public final int status = leaderBoard.getStatus().getValue();
-                        public final boolean isCurrentUser = leaderBoard.isIscurentuser();
-                    };
-                })
-                .collect(Collectors.toList());
+    public List<LeaderBoard> getLeaderBoard() {
+        return leaderBoardService.getLeaderBoard();
     }
 
-    @PostMapping("/score")
-    public Object processScore(@RequestBody List<Integer> scores) {
-        LeaderBoard updatedLeaderBoard = leaderBoardService.processAndUpdateCurrentUserScore(scores);
-
-        // Returnează un obiect simplificat cu datele actualizate
-        return new Object() {
-            public final String userId = updatedLeaderBoard.getUser().getId();
-            public final String nickname = updatedLeaderBoard.getUser().getNickname();
-            public final int score = updatedLeaderBoard.getScore();
-            public final int status = updatedLeaderBoard.getStatus().getValue();
-            public final boolean isCurrentUser = updatedLeaderBoard.isIscurentuser();
-        };
+    // Endpoint pentru a actualiza scorul utilizatorului curent pe baza taskurilor completate
+    @PostMapping("/update")
+    public LeaderBoard updateScore(@RequestBody List<Integer> taskStatus) {
+        if (taskStatus.size() > 31) {
+            throw new IllegalArgumentException("Lista trebuie să conțină 30 sau 31 de zile.");
+        }
+        return leaderBoardService.updateCurrentUserScore(taskStatus);
     }
 }

@@ -5,8 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-
 public interface LeaderBoardRepository extends MongoRepository<LeaderBoard, String> {
-    Optional<LeaderBoard> findByUserId(String userId); // Găsește după userId
-
+    Optional<LeaderBoard> findByUserId(String userId);
 }
