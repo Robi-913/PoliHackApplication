@@ -18,7 +18,6 @@ public class HabitController {
     @Autowired
     private final HabitService habitService;
 
-
     public HabitController(HabitService habitService)
     {
         this.habitService=habitService;

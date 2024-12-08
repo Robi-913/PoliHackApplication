@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="3a84fc86-396e-4389-90dc-967e57cd4f5b" name="Changes" comment="quiz">
       <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+    <list default="true" id="3a84fc86-396e-4389-90dc-967e57cd4f5b" name="Changes" comment="aia e">
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,15 +32,30 @@
     </option>
   </component>
   <component name="Git.Settings">
+<<<<<<< Updated upstream
+=======
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
+>>>>>>> Stashed changes
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectColorInfo"><![CDATA[{
   "customColor": "",
   "associatedIndex": 1
 }]]></component>
+=======
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
+>>>>>>> Stashed changes
   <component name="ProjectId" id="2ptRzo9t53hxC2Jsx3xj6v5zPy0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -43,19 +63,51 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< Updated upstream
+=======
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+>>>>>>> Stashed changes
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+<<<<<<< Updated upstream
     "git-widget-placeholder": "choosing__habit",
+=======
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Polihack.v.16/AIPolihack",
+>>>>>>> Stashed changes
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+<<<<<<< Updated upstream
+=======
+    "nodejs_package_manager_path": "npm",
+>>>>>>> Stashed changes
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager">
+<<<<<<< Updated upstream
+=======
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="PoliHack" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="PoliHack" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+>>>>>>> Stashed changes
     <configuration name="PoliHackApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="PoliHack.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.PoliHack.PoliHackApplication" />
@@ -72,7 +124,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1733583652554</updated>
+<<<<<<< Updated upstream
       <workItem from="1733583656452" duration="6178000" />
+=======
+      <workItem from="1733583656452" duration="9141000" />
+      <workItem from="1733603740991" duration="682000" />
+>>>>>>> Stashed changes
     </task>
     <task id="LOCAL-00001" summary="quiz">
       <option name="closed" value="true" />
@@ -98,7 +155,19 @@
       <option name="project" value="LOCAL" />
       <updated>1733598116912</updated>
     </task>
+<<<<<<< Updated upstream
     <option name="localTasksCounter" value="4" />
+=======
+    <task id="LOCAL-00004" summary="aia e">
+      <option name="closed" value="true" />
+      <created>1733598473918</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733598473918</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+>>>>>>> Stashed changes
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -106,6 +175,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="quiz" />
+<<<<<<< Updated upstream
     <option name="LAST_COMMIT_MESSAGE" value="quiz" />
+=======
+    <MESSAGE value="aia e" />
+    <option name="LAST_COMMIT_MESSAGE" value="aia e" />
+>>>>>>> Stashed changes
   </component>
 </project>
