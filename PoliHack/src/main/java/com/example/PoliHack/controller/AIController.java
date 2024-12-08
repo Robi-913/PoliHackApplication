@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AIController {
 
     @PostMapping ("/ai")
-    public void testAI(String question)
+    public String testAI(String question)
     {
         ApiClient apiClient=new ApiClient();
         String apiResponse=apiClient.sendQuestion(question);
-//        System.out.println(apiResponse);
+        return apiResponse;
 
     }
 }

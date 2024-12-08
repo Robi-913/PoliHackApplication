@@ -8,6 +8,7 @@ import com.example.PoliHack.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,11 +39,17 @@ public class QuizController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> addSubmit(@RequestBody List<String> options)
+    public String addSubmit(@RequestBody List<String> options)
     {
         List<Quiz> quizzes = quizRepository.findAll();
         String aiInput=quizService.fetchResponses(options,quizzes);
-        return ResponseEntity.ok(aiInput);
+
+        RestTemplate restTemplate = new RestTemplate();
+        String aiEndpoint = "http://localhost:8080/ai";  // Replace with the actual AI service URL
+        String aiResponse=restTemplate.postForObject(aiEndpoint, aiInput, String.class);
+
+        return aiResponse;
+
     }
 
 }
