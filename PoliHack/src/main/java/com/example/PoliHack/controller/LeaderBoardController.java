@@ -20,12 +20,14 @@ public class LeaderBoardController {
     @GetMapping
     public List<Object> getLeaderBoard() {
         return leaderBoardService.getLeaderBoard().stream()
-                .map(leaderBoard -> new Object() {
-                    public final String userId = leaderBoard.getUser().getId();
-                    public final String nickname = leaderBoard.getUser().getNickname();
-                    public final int score = leaderBoard.getScore();
-                    public final int status = leaderBoard.getStatus().getValue();
-                    public final boolean isCurrentUser = leaderBoard.isIscurentuser();
+                .map(leaderBoard -> {
+                    return new Object() {
+                        public final String userId = leaderBoard.getUser().getId();
+                        public final String nickname = leaderBoard.getUser().getNickname();
+                        public final int score = leaderBoard.getScore();
+                        public final int status = leaderBoard.getStatus().getValue();
+                        public final boolean isCurrentUser = leaderBoard.isIscurentuser();
+                    };
                 })
                 .collect(Collectors.toList());
     }
@@ -34,6 +36,7 @@ public class LeaderBoardController {
     public Object processScore(@RequestBody List<Integer> scores) {
         LeaderBoard updatedLeaderBoard = leaderBoardService.processAndUpdateCurrentUserScore(scores);
 
+        // Returnează un obiect simplificat cu datele actualizate
         return new Object() {
             public final String userId = updatedLeaderBoard.getUser().getId();
             public final String nickname = updatedLeaderBoard.getUser().getNickname();

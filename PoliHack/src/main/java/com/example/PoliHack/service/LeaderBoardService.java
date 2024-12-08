@@ -9,8 +9,6 @@ import com.example.PoliHack.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -28,10 +26,6 @@ public class LeaderBoardService {
     public LeaderBoard processAndUpdateCurrentUserScore(List<Integer> scores) {
         UserSession currentUserSession = UserSession.getInstance();
         String currentUserId = currentUserSession.getUserId();
-
-        if (currentUserId == null || currentUserId.isEmpty()) {
-            throw new IllegalArgumentException("Nu există sesiune activă pentru utilizatorul curent.");
-        }
 
         try {
             LeaderBoard leaderBoard = leaderBoardRepository.findByUserId(currentUserId)
