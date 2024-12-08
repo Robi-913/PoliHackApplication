@@ -48,6 +48,7 @@ public class LeaderBoardController {
                 .collect(Collectors.toList());
     }
 
+
     @PostMapping("/score")
     public Object processScore(@RequestBody List<Integer> scores) {
         LeaderBoard updatedLeaderBoard = leaderBoardService.processAndUpdateCurrentUserScore(scores);
