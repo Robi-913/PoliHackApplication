@@ -22,4 +22,8 @@ public class HabitService {
     {
         return habitRepository.findAll();
     }
+
+    public void deleteHabit(Habit habit) {
+        habitRepository.delete(habit);
+    }
 }

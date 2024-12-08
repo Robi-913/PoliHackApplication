@@ -18,7 +18,6 @@ public class ApiClient {
 
 
     public Mono<String> sendQuestion(String question) {
-        question = sanitizeInput(question);
         return webClient.post()
                 .uri("/api/v1/ai/question")
                 .contentType(MediaType.APPLICATION_JSON)
