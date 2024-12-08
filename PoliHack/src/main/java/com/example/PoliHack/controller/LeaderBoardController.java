@@ -58,6 +58,8 @@ public class LeaderBoardController {
             public final int score = updatedLeaderBoard.getScore();
             public final int status = updatedLeaderBoard.getStatus().getValue();
             public final boolean isCurrentUser = updatedLeaderBoard.isIscurentuser();
+            public final boolean voted = updatedLeaderBoard.isVoted();
+
         };
     }
 

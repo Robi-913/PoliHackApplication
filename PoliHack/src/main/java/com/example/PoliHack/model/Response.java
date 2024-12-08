@@ -1,6 +1,7 @@
 package com.example.PoliHack.model;
 
 
+import com.example.PoliHack.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,6 @@ public class Response {
     @Id
     private ObjectId responseId;
     private List<Integer> answers;
-    private String userId;
+    private User user;
 
 }

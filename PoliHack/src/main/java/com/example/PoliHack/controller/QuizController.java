@@ -16,7 +16,12 @@ import java.util.List;
 public class QuizController {
     @Autowired
     private QuizRepository quizRepository;
-    private QuizService quizService;
+    private final QuizService quizService;
+
+
+    public QuizController(QuizService quizService) {
+        this.quizService = quizService;
+    }
 
     // Fetch all quizzes
     @GetMapping()
@@ -26,11 +31,11 @@ public class QuizController {
     }
 
     @PostMapping()
-    public String addSubmit(@RequestBody Response response)
+    public ResponseEntity<String> addSubmit(@RequestBody List<String> options)
     {
-        List<Integer> answers = response.getAnswers();
-        Integer maxCount=quizService.calculateOccurence(answers);
-        return "redirect:/habits";
+        List<Quiz> quizzes = quizRepository.findAll();
+        String aiInput=quizService.fetchResponses(options,quizzes);
+        return ResponseEntity.ok(aiInput);
     }
 
 }

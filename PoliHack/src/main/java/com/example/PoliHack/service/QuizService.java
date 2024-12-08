@@ -1,6 +1,7 @@
 package com.example.PoliHack.service;
 
 
+import com.example.PoliHack.model.Quiz;
 import com.example.PoliHack.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,22 +13,32 @@ import java.util.Map;
 @Service
 public class QuizService {
 
-    public Integer calculateOccurence(List<Integer> ans)
+    public String fetchResponses(List<String> options, List<Quiz> quizzes)
     {
-        Map<Integer, Integer> frequencyMap = new HashMap<>();
-        for (Integer answer : ans) {
-            frequencyMap.put(answer, frequencyMap.getOrDefault(answer, 0) + 1);
+        StringBuilder prompt= new StringBuilder();
+        int i=0;
+        for(Quiz quiz : quizzes)
+        {
+            prompt.append(quiz.getQuestion());
+            prompt.append("\n");
+            prompt.append(quiz.getOptions().get(convert(options.get(i))));
+            prompt.append("\n");
+            i++;
         }
 
-        // Step 2: Find the most frequent value
-        Integer mostFrequentAnswer = null;
-        int maxCount = 0;
-        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
-            if (entry.getValue() > maxCount) {
-                mostFrequentAnswer = entry.getKey();
-                maxCount = entry.getValue();
-            }
-        }
-        return maxCount;
+
+        return prompt.toString();
+
+    }
+    public Integer convert(String value)
+    {
+        return switch (value) {
+            case "a" -> 0;
+            case "b" -> 1;
+            case "c" -> 2;
+            case "d" -> 3;
+            default -> null;
+        };
+
     }
 }
