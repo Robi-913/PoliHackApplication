@@ -29,6 +29,7 @@ public class LeaderBoardController {
                     public final int score = leaderBoard.getScore();
                     public final int status = leaderBoard.getStatus().getValue();
                     public final boolean isCurrentUser = leaderBoard.isIscurentuser();
+                    public final boolean voted = leaderBoard.isVoted();
                 })
                 .collect(Collectors.toList());
     }
@@ -42,6 +43,7 @@ public class LeaderBoardController {
                     public final int score = leaderBoard.getScore();
                     public final int status = leaderBoard.getStatus().getValue();
                     public final boolean isCurrentUser = leaderBoard.isIscurentuser();
+                    public final boolean voted = leaderBoard.isVoted();
                 })
                 .collect(Collectors.toList());
     }
@@ -66,7 +68,13 @@ public class LeaderBoardController {
         System.out.println("Month: " + request.getMonth());
         System.out.println("State Vector: " + request.getStateVector());
 
-        // Here, you would process the request or update the database as needed
         return ResponseEntity.ok("Sync successful");
     }
+
+    @GetMapping("/voted")
+    public ResponseEntity<Boolean> hasVoted(@PathVariable String userId) {
+        boolean hasVoted = leaderBoardService.hasVoted(userId);
+        return ResponseEntity.ok(hasVoted);
+    }
+
 }

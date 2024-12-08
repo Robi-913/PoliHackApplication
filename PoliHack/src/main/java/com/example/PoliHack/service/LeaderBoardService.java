@@ -28,12 +28,14 @@ public class LeaderBoardService {
         for (User user : users) {
             int score = calculateScoreForUser(user);
             int statusValue = determineStatusValueForUser(user);
+            boolean voted =  true;
 
             LeaderBoard leaderBoard = new LeaderBoard();
             leaderBoard.setUser(user);
             leaderBoard.setScore(score);
             leaderBoard.setStatus(UserStatus.fromValue(statusValue));
             leaderBoard.setIscurentuser(user.getId().equals(currentUserSession.getUserId()));
+            leaderBoard.setVoted(voted);
 
             leaderBoardList.add(leaderBoard);
         }
@@ -73,4 +75,12 @@ public class LeaderBoardService {
     private int determineStatusValueForUser(User user) {
         return (int) (Math.random() * 4);
     }
+
+    public boolean hasVoted(String userId) {
+        LeaderBoard leaderBoard = leaderBoardRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Utilizatorul nu există în LeaderBoard."));
+        return leaderBoard.isVoted();
+    }
+
+
 }

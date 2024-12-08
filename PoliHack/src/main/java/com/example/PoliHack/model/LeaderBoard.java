@@ -18,4 +18,5 @@ public class LeaderBoard {
     private int score;
     private UserStatus status;
     private boolean iscurentuser;
+    private boolean voted;
 }
